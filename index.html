@@ -2,50 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noggle Pong</title>
-    <style>
-        body {
-            margin: 0;
-            background-color: #000;
-            font-family: Arial, sans-serif;
-            color: #fff;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-
-        .game-container {
-            text-align: center;
-        }
-
-        canvas {
-            display: block;
-            margin-bottom: 15px;
-            border: 1px solid #fff;
-        }
-
-        .instructions {
-            font-size: 1.1em;
-            line-height: 1.5;
-            max-width: 80%;
-            margin: 0 auto;
-        }
-    </style>
 </head>
-<body>
-    <div class="game-container">
-        <h1>Noggle Pong</h1>
-        <canvas id="gameCanvas" width="800" height="600"></canvas>
-        <p class="instructions">
-            Welcome to Noggle Pong! You control the left paddle with your mouse.
-            Your goal is to hit the ⌐◨-◨ back to your opponent's side without letting it pass your paddle.
-            The right paddle is controlled by a simple AI that will try to hit the ⌐◨-◨ back to your side.
-            First player to score 10 points wins the game. Good luck!
-        </p>
-    </div>
-    <script src="script.js"></script>
+<body style="background-color: black; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0;">
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    <script src="pong.js"></script>
 </body>
 </html>
 
