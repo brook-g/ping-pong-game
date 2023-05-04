@@ -3,20 +3,19 @@ const ctx = canvas.getContext('2d');
 
 const paddleWidth = 10;
 const paddleHeight = 100;
-const characterWidth = 20;
-const characterHeight = 20;
+const ballRadius = 8;
 
 let paddle1Y = (canvas.height - paddleHeight) / 2;
 let paddle2Y = (canvas.height - paddleHeight) / 2;
-let characterX = canvas.width / 2;
-let characterY = canvas.height / 2;
-let characterSpeedX = 3;
-let characterSpeedY = 2;
+let ballX = canvas.width / 2;
+let ballY = canvas.height / 2;
+let ballSpeedX = 3;
+let ballSpeedY = 2;
 
-function drawCharacter() {
+function drawBall() {
   ctx.font = '20px monospace';
   ctx.fillStyle = '#fff';
-  ctx.fillText('⌐◨-◨', characterX, characterY);
+  ctx.fillText('⌐◨-◨', ballX - 10, ballY + 5);
 }
 
 function drawPaddle(x, y) {
@@ -30,31 +29,56 @@ function drawPaddle(x, y) {
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  characterX += characterSpeedX;
-  characterY += characterSpeedY;
+  ballX += ballSpeedX;
+  ballY += ballSpeedY;
 
-  if (characterX + characterWidth > canvas.width || characterX < 0) {
-    characterSpeedX = -characterSpeedX;
+  if (ballX + ballRadius > canvas.width || ballX - ballRadius < 0) {
+    ballSpeedX = -ballSpeedX;
   }
 
-  if (characterY + characterHeight > canvas.height || characterY < 0) {
-    characterSpeedY = -characterSpeedY;
+  if (ballY + ballRadius > canvas.height || ballY - ballRadius < 0) {
+    ballSpeedY = -ballSpeedY;
   }
 
-  if (characterX < paddleWidth && characterY > paddle1Y && characterY < paddle1Y + paddleHeight) {
-    characterSpeedX = -characterSpeedX;
+  if (ballX - ballRadius < paddleWidth && ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
+    ballSpeedX = -ballSpeedX;
   }
 
-  if (characterX + characterWidth > canvas.width - paddleWidth && characterY > paddle2Y && characterY < paddle2Y + paddleHeight) {
-    characterSpeedX = -characterSpeedX;
+  if (ballX + ballRadius > canvas.width - paddleWidth && ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
+    ballSpeedX = -ballSpeedX;
   }
 
-  paddle1Y = characterY - (paddleHeight / 2);
-  paddle2Y = characterY - (paddleHeight / 2);
+  paddle1Y = ballY - (paddleHeight / 2);
+  paddle2Y = ballY - (paddleHeight / 2);
 
-  drawCharacter();
+  drawBall();
   drawPaddle(0, paddle1Y);
   drawPaddle(canvas.width - paddleWidth, paddle2Y);
+
+  // Collision detection for paddles
+  if (ballX < 0) {
+    if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
+      ballSpeedX = -ballSpeedX;
+    } else {
+      // Player 2 scores a point
+      ballReset();
+    }
+  }
+
+  if (ballX > canvas.width) {
+    if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
+      ballSpeedX = -ballSpeedX;
+    } else {
+      // Player 1 scores a point
+      ballReset();
+    }
+  }
+}
+
+function ballReset() {
+  ballX = canvas.width / 2;
+  ballY = canvas.height / 2;
+  ballSpeedX = -ballSpeedX;
 }
 
 setInterval(draw, 10);
