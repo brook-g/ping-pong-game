@@ -11,11 +11,25 @@ let ballX = canvas.width / 2;
 let ballY = canvas.height / 2;
 let ballSpeedX = 3;
 let ballSpeedY = 2;
+let gameOver = false;
 
 canvas.addEventListener('mousemove', (e) => {
   const { top } = canvas.getBoundingClientRect();
   paddle1Y = e.clientY - top - paddleHeight / 2;
 });
+
+function ballReset() {
+  ballX = canvas.width / 2;
+  ballY = canvas.height / 2;
+  ballSpeedX = -ballSpeedX;
+  gameOver = true;
+}
+
+function drawGameOver() {
+  ctx.font = '48px Arial';
+  ctx.fillStyle = '#fff';
+  ctx.fillText('Game Over', canvas.width / 2 - 100, canvas.height / 2);
+}
 
 function drawBall() {
   ctx.font = '20px monospace';
@@ -42,6 +56,11 @@ function aiPaddleMovement() {
 
 function draw() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  if (gameOver) {
+  drawGameOver();
+  return;
+  }
 
   ballX += ballSpeedX;
   ballY += ballSpeedY;
