@@ -1,12 +1,15 @@
 body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   margin: 0;
   background-color: #222;
   font-family: Arial, sans-serif;
   color: #fff;
+}
+
+.page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
 }
 
 .game-container {
