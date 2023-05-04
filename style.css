@@ -28,18 +28,3 @@ canvas {
   max-width: 80%;
   margin: 0 auto;
 }
-
-body.light-mode {
-  background-color: #f0f0f0;
-  color: #222;
-}
-
-.light-mode canvas {
-  border: 1px solid #222;
-}
-
-.light-mode #toggleTheme {
-  background-color: #f0f0f0;
-  color: #222;
-}
-
