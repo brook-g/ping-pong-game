@@ -55,11 +55,11 @@ function draw() {
   }
 
   if (ballX - ballRadius < paddleWidth && ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
-    ballSpeedX = -ballSpeedX;
+    ballSpeedX = -ballSpeedX * 1.1; //Increase speed by 10%
   }
 
   if (ballX + ballRadius > canvas.width - paddleWidth && ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
-    ballSpeedX = -ballSpeedX;
+    ballSpeedX = -ballSpeedX * 1.1; //Increase speed by 10%
   }
 
   aiPaddleMovement();
