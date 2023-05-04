@@ -71,3 +71,9 @@ function draw() {
 
 setInterval(draw, 10);
 
+const toggleThemeButton = document.getElementById('toggleTheme');
+
+toggleThemeButton.addEventListener('click', () => {
+  document.body.classList.toggle('light-mode');
+});
+
