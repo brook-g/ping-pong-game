@@ -12,6 +12,11 @@ let ballY = canvas.height / 2;
 let ballSpeedX = 3;
 let ballSpeedY = 2;
 
+canvas.addEventListener('mousemove', (e) => {
+  const { top } = canvas.getBoundingClientRect();
+  paddle1Y = e.clientY - top - paddleHeight / 2;
+});
+
 function drawBall() {
   ctx.font = '20px monospace';
   ctx.fillStyle = '#fff';
@@ -24,6 +29,15 @@ function drawPaddle(x, y) {
   ctx.fillStyle = '#fff';
   ctx.fill();
   ctx.closePath();
+}
+
+function aiPaddleMovement() {
+  const paddle2Center = paddle2Y + (paddleHeight / 2);
+  if (paddle2Center < ballY - 35) {
+    paddle2Y += 2;
+  } else if (paddle2Center > ballY + 35) {
+    paddle2Y -= 2;
+  }
 }
 
 function draw() {
@@ -48,37 +62,11 @@ function draw() {
     ballSpeedX = -ballSpeedX;
   }
 
-  paddle1Y = ballY - (paddleHeight / 2);
-  paddle2Y = ballY - (paddleHeight / 2);
+  aiPaddleMovement();
 
   drawBall();
   drawPaddle(0, paddle1Y);
   drawPaddle(canvas.width - paddleWidth, paddle2Y);
-
-  // Collision detection for paddles
-  if (ballX < 0) {
-    if (ballY > paddle1Y && ballY < paddle1Y + paddleHeight) {
-      ballSpeedX = -ballSpeedX;
-    } else {
-      // Player 2 scores a point
-      ballReset();
-    }
-  }
-
-  if (ballX > canvas.width) {
-    if (ballY > paddle2Y && ballY < paddle2Y + paddleHeight) {
-      ballSpeedX = -ballSpeedX;
-    } else {
-      // Player 1 scores a point
-      ballReset();
-    }
-  }
-}
-
-function ballReset() {
-  ballX = canvas.width / 2;
-  ballY = canvas.height / 2;
-  ballSpeedX = -ballSpeedX;
 }
 
 setInterval(draw, 10);
